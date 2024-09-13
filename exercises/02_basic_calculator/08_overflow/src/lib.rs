@@ -10,11 +10,14 @@ pub fn factorial(n: u32) -> u32 {
     for i in 1..=n {
         result *= i;
     }
+
     result
 }
 
 #[cfg(test)]
 mod tests {
+    use std::u32;
+
     use crate::factorial;
 
     #[test]
@@ -22,6 +25,7 @@ mod tests {
         // 20! is 2432902008176640000, which is too large to fit in a u32
         // With the default dev profile, this will panic when you run `cargo test`
         // We want it to wrap around instead
+        println!("{}, {}", factorial(20), u32::MAX);
         assert_eq!(factorial(20), 2_192_834_560);
         //                           ☝️
         // A large number literal using underscores to improve readability!
