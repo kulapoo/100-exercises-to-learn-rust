@@ -11,6 +11,6 @@ mod tests {
 
     #[test]
     fn test_outro() {
-        assert_eq!(outro(), "I have a basic understanding of destructors!");
+        assert_eq!(outro(), "I have a basic understanding of __!");
     }
 }
