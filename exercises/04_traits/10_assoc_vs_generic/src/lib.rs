@@ -1,3 +1,4 @@
+#[warn(dead_code)]
 // TODO: Define a new trait, `Power`, that has a method `power` that raises `self`
 //  to the power of `n`.
 //  The trait definition and its implementations should be enough to get
@@ -12,6 +13,33 @@
 // interested in learning more about it.
 // You don't have to though: it's perfectly okay to write three separate
 // implementations manually. Venture further only if you're curious.
+
+trait Power<Number> {
+    type Target;
+
+    fn power(&self, exp: Number) -> Self;
+}
+
+
+impl Power<u32> for u32 {
+    type Target = u32;
+    fn power(&self, exp: Self::Target) -> Self {
+        self.pow(exp)
+    }
+}
+
+impl Power<u16> for u32 {
+    type Target = u16;
+    fn power(&self, exp: Self::Target) -> Self {
+        self.pow(exp as u32)
+    }
+}
+impl <'a> Power<&'a u32> for u32 {
+    type Target = &'a u32;
+    fn power(&self, exp: Self::Target) -> Self {
+        self.pow(*exp)
+    }
+}
 
 #[cfg(test)]
 mod tests {
