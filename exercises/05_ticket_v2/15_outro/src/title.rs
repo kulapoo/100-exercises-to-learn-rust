@@ -17,7 +17,7 @@ impl TryFrom<String> for TicketTitle {
         if value.is_empty() {
             return Err("The title cannot be empty".to_string());
         }
-        if value.len() > 500 {
+        if value.len() > 50 {
             return Err("The title cannot be longer than 50 bytes".to_string());
         }
         Ok(TicketTitle(value.to_string()))
