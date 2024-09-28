@@ -24,7 +24,7 @@ impl TicketStoreClient {
                 response_channel: response_sender,
             })
             .map_err(|_| OverloadedError)?;
-        Ok(response_receiver.recv().unwrap())
+        Ok(response_receiver.recv().expect("INSER ERROR"))
     }
 
     pub fn get(&self, id: TicketId) -> Result<Option<Arc<Mutex<Ticket>>>, OverloadedError> {
@@ -76,7 +76,8 @@ pub fn server(receiver: Receiver<Command>) {
                 response_channel,
             }) => {
                 let ticket = store.get(id);
-                let _ = response_channel.send(ticket);
+                let ticket = ticket.unwrap().clone();
+                let _ = response_channel.send(Some(ticket));
             }
             Err(_) => {
                 // There are no more senders, so we can safely break
